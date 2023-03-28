@@ -18,7 +18,7 @@ nullable.NewString("hello")
 
 // Check if the underlying string is NULL. There is also a Nil() function
 // alias for those that prefer a more Go-like syntax.
-if value.Null() {
+if value.Null() || value.Nil() {
     log.Println("i am stored as NULL in the database")
 }
 

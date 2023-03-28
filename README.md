@@ -3,7 +3,7 @@
 This repository is under heavy construction.
 
 The nullable package provides an [Active Support](https://guides.rubyonrails.org/active_support_core_extensions.html)
-inspired syntax sugar on top of the nullable data types provided by the standard
+inspired syntax on top of the nullable data types provided by the standard
 [database/sql](https://github.com/golang/go/tree/master/src/database/sql) package.
 The interface should feel natural to those who are familiar with [Rails](https://github.com/rails/rails).
 
@@ -30,6 +30,9 @@ if value.Present() {
 if value.Empty() {
     log.Println("i am an empty string")
 }
+
+// Get the SHA256 hexadecimal string representation of the value.
+value.HexString()
 ```
 
 ## Motivation

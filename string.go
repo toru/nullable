@@ -5,6 +5,7 @@ import (
 	"database/sql/driver"
 )
 
+// String is a type alias against the standard sql.NullString type.
 type String sql.NullString
 
 // NewString returns a String populated with the given string.

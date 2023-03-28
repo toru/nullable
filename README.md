@@ -10,6 +10,12 @@ The interface should feel natural to those who are familiar with [Rails](https:/
 ## Quick Examples
 
 ```go
+// Constructing the value is identical to the standard type.
+nullable.String{Value: "hello", Valid: true}
+
+// An equivalent convenience function is also provided.
+nullable.NewString("hello")
+
 // Check if the underlying string is NULL.
 if value.Null() {
     log.Println("i am stored as NULL in the database")

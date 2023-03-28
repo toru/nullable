@@ -18,12 +18,14 @@ func NewString(val string) String {
 
 // Scan wraps the standard Scan function, which implements the Scanner interface.
 func (s *String) Scan(value any) error {
-	return s.Scan(value)
+	ns := sql.NullString(*s)
+	return ns.Scan(value)
 }
 
 // Value wraps the standard Value function, which implements the driver Valuer interface.
 func (s String) Value() (driver.Value, error) {
-	return s.Value()
+	ns := sql.NullString(s)
+	return ns.Value()
 }
 
 // Present returns true if the value is a non-empty string.

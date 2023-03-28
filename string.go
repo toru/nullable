@@ -35,7 +35,7 @@ func (s String) Present() bool {
 
 // Null returns true if the underlying value is NULL.
 func (s String) Null() bool {
-	return s.Valid == false
+	return !s.Valid
 }
 
 // Empty returns true if the underlying value is either NULL or an empty string.

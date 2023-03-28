@@ -87,6 +87,27 @@ func TestStringNull(t *testing.T) {
 	}
 }
 
+func TestStringNil(t *testing.T) {
+	testCases := []struct {
+		label   string
+		subject String
+		want    bool
+	}{
+		{"with NULL string", String{Valid: false}, true},
+		{"with empty string", String{String: "", Valid: true}, false},
+		{"with non-empty string", String{String: "hello", Valid: true}, false},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.label, func(t *testing.T) {
+			if res := tc.subject.Nil(); res != tc.want {
+				t.Errorf("got: %v, want: %v", res, tc.want)
+				return
+			}
+		})
+	}
+}
+
 func TestStringEmpty(t *testing.T) {
 	testCases := []struct {
 		label   string

@@ -40,6 +40,11 @@ func (s String) Null() bool {
 	return !s.Valid
 }
 
+// Nil is an alias for Null() for those that prefer a more Go-like syntax.
+func (s String) Nil() bool {
+	return s.Null()
+}
+
 // Empty returns true if the underlying value is either NULL or an empty string.
 // Use the Null() function if you want to test specifically for NULL.
 func (s String) Empty() bool {

@@ -1,3 +1,6 @@
+// Package nullable provides an Active Support like syntax on top of the
+// nullable data types provided by the standard database/sql package. The
+// interface should feel natural to those who are familiar with Rails.
 package nullable
 
 import (

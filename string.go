@@ -4,8 +4,10 @@
 package nullable
 
 import (
+	"crypto/sha256"
 	"database/sql"
 	"database/sql/driver"
+	"encoding/hex"
 )
 
 // String is a type alias against the standard sql.NullString type.
@@ -42,4 +44,22 @@ func (s String) Null() bool {
 // Use the Null() function if you want to test specifically for NULL.
 func (s String) Empty() bool {
 	return !s.Valid || len(s.String) == 0
+}
+
+// HexString returns a SHA256 hexadecimal string representation of the
+// underlying value. Other algorithms may be supported in the future.
+func (s String) HexString() string {
+	var src string
+
+	// Defensively handle the NULL case instead of computing the digest of the
+	// underlying value. For example, it is possible for Valid to be false while
+	// the value is a non-empty string.
+	if s.Valid {
+		src = s.String
+	} else {
+		src = ""
+	}
+	digest := sha256.Sum256([]byte(src))
+
+	return hex.EncodeToString(digest[:])
 }

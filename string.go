@@ -26,8 +26,7 @@ func (s *String) Scan(value any) error {
 
 // Value wraps the standard Value function, which implements the driver Valuer interface.
 func (s String) Value() (driver.Value, error) {
-	ns := sql.NullString(s)
-	return ns.Value()
+	return sql.NullString(s).Value()
 }
 
 // Present returns true if the value is a non-empty string.

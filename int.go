@@ -21,8 +21,7 @@ func (i *Int64) Scan(value any) error {
 
 // Value wraps the standard Value function, which implements the driver Valuer interface.
 func (i Int64) Value() (driver.Value, error) {
-	ni := sql.NullInt64(i)
-	return ni.Value()
+	return sql.NullInt64(i).Value()
 }
 
 // Null returns true if the underlying value is NULL.

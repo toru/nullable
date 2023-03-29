@@ -127,3 +127,56 @@ func TestInt32Null(t *testing.T) {
 		})
 	}
 }
+
+func TestNewInt16(t *testing.T) {
+	testCases := []struct {
+		label string
+		input int16
+		want  bool
+	}{
+		{"with negative integer", -1, true},
+		{"with positive integer", 1, true},
+		{"with zero", 0, true},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.label, func(t *testing.T) {
+			val := NewInt16(tc.input)
+
+			if val.Valid != tc.want {
+				t.Errorf("got: %v, want: %v", val.Valid, tc.want)
+				return
+			}
+			if val.Int16 != tc.input {
+				t.Errorf("got: %v, want: %v", val.Int16, tc.input)
+				return
+			}
+		})
+	}
+}
+
+func TestInt16Null(t *testing.T) {
+	testCases := []struct {
+		label   string
+		subject Int16
+		want    bool
+	}{
+		{"with NULL integer", Int16{Valid: false}, true},
+		{"with negative integer", Int16{Int16: -1, Valid: true}, false},
+		{"with positive integer", Int16{Int16: 1, Valid: true}, false},
+		{"with zero", Int16{Int16: 0, Valid: true}, false},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.label, func(t *testing.T) {
+			if res := tc.subject.Null(); res != tc.want {
+				t.Errorf("got: %v, want: %v", res, tc.want)
+				return
+			}
+			if res := tc.subject.Nil(); res != tc.want {
+				t.Errorf("got: %v, want: %v", res, tc.want)
+				return
+			}
+		})
+	}
+}

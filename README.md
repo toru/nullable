@@ -32,7 +32,7 @@ if value.Empty() {
     log.Println("i am an empty string")
 }
 
-// Get the SHA256 hexadecimal string representation of the value.
+// Get the hexadecimal string representation of the underlying value.
 value.HexString()
 ```
 

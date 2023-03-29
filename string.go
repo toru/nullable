@@ -24,7 +24,6 @@
 package nullable
 
 import (
-	"crypto/sha256"
 	"database/sql"
 	"database/sql/driver"
 	"encoding/hex"
@@ -70,8 +69,7 @@ func (s String) Empty() bool {
 	return !s.Valid || len(s.String) == 0
 }
 
-// HexString returns a SHA256 hexadecimal string representation of the
-// underlying value. Other algorithms may be supported in the future.
+// HexString returns a hexadecimal string representation of the underlying value.
 func (s String) HexString() string {
 	var src string
 
@@ -83,7 +81,6 @@ func (s String) HexString() string {
 	} else {
 		src = ""
 	}
-	digest := sha256.Sum256([]byte(src))
 
-	return hex.EncodeToString(digest[:])
+	return hex.EncodeToString([]byte(src))
 }

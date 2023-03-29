@@ -9,8 +9,8 @@ import (
 type Int64 sql.NullInt64
 
 // NewInt64 returns an Int64 populated with the given int64.
-func NewInt64(val int64) Int64 {
-	return Int64{Int64: val, Valid: true}
+func NewInt64(value int64) Int64 {
+	return Int64{Int64: value, Valid: true}
 }
 
 // Scan wraps the standard Scan function, which implements the Scanner interface.
@@ -31,5 +31,34 @@ func (i Int64) Null() bool {
 
 // Nil is an alias for Null() for those that prefer a more Go-like syntax.
 func (i Int64) Nil() bool {
+	return i.Null()
+}
+
+// Int32 is a type alias against the standard sql.NullInt32 type.
+type Int32 sql.NullInt32
+
+// NewInt32 returns an Int64 populated with the given int64.
+func NewInt32(value int32) Int32 {
+	return Int32{Int32: value, Valid: true}
+}
+
+// Scan wraps the standard Scan function, which implements the Scanner interface.
+func (i *Int32) Scan(value any) error {
+	ni := sql.NullInt32(*i)
+	return ni.Scan(value)
+}
+
+// Value wraps the standard Value function, which implements the driver Valuer interface.
+func (i Int32) Value() (driver.Value, error) {
+	return sql.NullInt32(i).Value()
+}
+
+// Null returns true if the underlying value is NULL.
+func (i Int32) Null() bool {
+	return !i.Valid
+}
+
+// Nil is an alias for Null() for those that prefer a more Go-like syntax.
+func (i Int32) Nil() bool {
 	return i.Null()
 }

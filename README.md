@@ -36,6 +36,10 @@ if value.Empty() {
 value.HexString()
 ```
 
+## Continuous Integration
+
+![go workflow](https://github.com/toru/nullable/actions/workflows/go.yml/badge.svg)
+
 ## Motivation
 
 Go's standard library provides precisely what it should: Well thought-out

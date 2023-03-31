@@ -36,7 +36,13 @@ func NewByte(value byte) Byte {
 // Scan wraps the standard Scan function, which implements the Scanner interface.
 func (b *Byte) Scan(value any) error {
 	nb := sql.NullByte(*b)
-	return nb.Scan(value)
+
+	if err := nb.Scan(value); err != nil {
+		return err
+	}
+	*b = Byte(nb)
+
+	return nil
 }
 
 // Value wraps the standard Value function, which implements the driver Valuer interface.

@@ -23,6 +23,7 @@ package nullable
 import (
 	"database/sql"
 	"database/sql/driver"
+	"strconv"
 )
 
 // Int64 is a type alias against the standard sql.NullInt64 type.
@@ -60,6 +61,14 @@ func (i Int64) Nil() bool {
 	return i.Null()
 }
 
+// HexString returns a hexadecimal string representation of the underlying value.
+func (i Int64) HexString() string {
+	if !i.Valid {
+		return ""
+	}
+	return intToHexString(i.Int64)
+}
+
 // Int32 is a type alias against the standard sql.NullInt32 type.
 type Int32 sql.NullInt32
 
@@ -95,6 +104,14 @@ func (i Int32) Nil() bool {
 	return i.Null()
 }
 
+// HexString returns a hexadecimal string representation of the underlying value.
+func (i Int32) HexString() string {
+	if !i.Valid {
+		return ""
+	}
+	return intToHexString(i.Int32)
+}
+
 // Int16 is a type alias against the standard sql.NullInt16 type.
 type Int16 sql.NullInt16
 
@@ -128,4 +145,29 @@ func (i Int16) Null() bool {
 // Nil is an alias for Null() for those that prefer a more Go-like syntax.
 func (i Int16) Nil() bool {
 	return i.Null()
+}
+
+// HexString returns a hexadecimal string representation of the underlying value.
+func (i Int16) HexString() string {
+	if !i.Valid {
+		return ""
+	}
+	return intToHexString(i.Int16)
+}
+
+func intToHexString(value any) string {
+	var src int64
+
+	switch v := value.(type) {
+	case int64:
+		src = v
+	case int32:
+		src = int64(v)
+	case int16:
+		src = int64(v)
+	default:
+		return ""
+	}
+
+	return strconv.FormatInt(src, 16)
 }

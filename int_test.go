@@ -102,6 +102,27 @@ func TestNewInt32(t *testing.T) {
 	}
 }
 
+func TestInt64HexString(t *testing.T) {
+	testCases := []struct {
+		label   string
+		subject Int64
+		want    string
+	}{
+		{"with NULL integer", Int64{Valid: false}, ""},
+		{"with non-null integer", Int64{Int64: 128, Valid: true}, "80"},
+		{"with another non-null integer", Int64{Int64: 12345, Valid: true}, "3039"},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.label, func(t *testing.T) {
+			if res := tc.subject.HexString(); res != tc.want {
+				t.Errorf("got: %v, want: %v", res, tc.want)
+				return
+			}
+		})
+	}
+}
+
 func TestInt32Null(t *testing.T) {
 	testCases := []struct {
 		label   string
@@ -121,6 +142,27 @@ func TestInt32Null(t *testing.T) {
 				return
 			}
 			if res := tc.subject.Nil(); res != tc.want {
+				t.Errorf("got: %v, want: %v", res, tc.want)
+				return
+			}
+		})
+	}
+}
+
+func TestInt32HexString(t *testing.T) {
+	testCases := []struct {
+		label   string
+		subject Int32
+		want    string
+	}{
+		{"with NULL integer", Int32{Valid: false}, ""},
+		{"with non-null integer", Int32{Int32: 128, Valid: true}, "80"},
+		{"with another non-null integer", Int32{Int32: 12345, Valid: true}, "3039"},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.label, func(t *testing.T) {
+			if res := tc.subject.HexString(); res != tc.want {
 				t.Errorf("got: %v, want: %v", res, tc.want)
 				return
 			}
@@ -174,6 +216,27 @@ func TestInt16Null(t *testing.T) {
 				return
 			}
 			if res := tc.subject.Nil(); res != tc.want {
+				t.Errorf("got: %v, want: %v", res, tc.want)
+				return
+			}
+		})
+	}
+}
+
+func TestInt16HexString(t *testing.T) {
+	testCases := []struct {
+		label   string
+		subject Int16
+		want    string
+	}{
+		{"with NULL integer", Int16{Valid: false}, ""},
+		{"with non-null integer", Int16{Int16: 128, Valid: true}, "80"},
+		{"with another non-null integer", Int16{Int16: 12345, Valid: true}, "3039"},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.label, func(t *testing.T) {
+			if res := tc.subject.HexString(); res != tc.want {
 				t.Errorf("got: %v, want: %v", res, tc.want)
 				return
 			}

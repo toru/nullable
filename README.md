@@ -1,15 +1,12 @@
 # Nullable
 
 The nullable package provides an [Active Support](https://guides.rubyonrails.org/active_support_core_extensions.html)
-inspired syntax on top of the nullable data types provided by the standard
+inspired syntax on top of the nullable data types provided by Go's standard
 [database/sql](https://github.com/golang/go/tree/master/src/database/sql) package.
-The goal is to help improve the readability of database interfacing code.
+The goal is to help improve the readability of database interfacing application code.
 The interface should feel natural to those who are familiar with [Rails](https://github.com/rails/rails).
 
-Here is the [full documentation](https://pkg.go.dev/github.com/toru/nullable)
-to jump right into it.
-
-This repository is under heavy construction.
+Here is the [full documentation](https://pkg.go.dev/github.com/toru/nullable).
 
 ## Quick Examples
 

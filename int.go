@@ -36,7 +36,13 @@ func NewInt64(value int64) Int64 {
 // Scan wraps the standard Scan function, which implements the Scanner interface.
 func (i *Int64) Scan(value any) error {
 	ni := sql.NullInt64(*i)
-	return ni.Scan(value)
+
+	if err := ni.Scan(value); err != nil {
+		return err
+	}
+	*i = Int64(ni)
+
+	return nil
 }
 
 // Value wraps the standard Value function, which implements the driver Valuer interface.
@@ -65,7 +71,13 @@ func NewInt32(value int32) Int32 {
 // Scan wraps the standard Scan function, which implements the Scanner interface.
 func (i *Int32) Scan(value any) error {
 	ni := sql.NullInt32(*i)
-	return ni.Scan(value)
+
+	if err := ni.Scan(value); err != nil {
+		return err
+	}
+	*i = Int32(ni)
+
+	return nil
 }
 
 // Value wraps the standard Value function, which implements the driver Valuer interface.
@@ -94,7 +106,13 @@ func NewInt16(value int16) Int16 {
 // Scan wraps the standard Scan function, which implements the Scanner interface.
 func (i *Int16) Scan(value any) error {
 	ni := sql.NullInt16(*i)
-	return ni.Scan(value)
+
+	if err := ni.Scan(value); err != nil {
+		return err
+	}
+	*i = Int16(ni)
+
+	return nil
 }
 
 // Value wraps the standard Value function, which implements the driver Valuer interface.

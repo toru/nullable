@@ -40,7 +40,13 @@ func NewString(val string) String {
 // Scan wraps the standard Scan function, which implements the Scanner interface.
 func (s *String) Scan(value any) error {
 	ns := sql.NullString(*s)
-	return ns.Scan(value)
+
+	if err := ns.Scan(value); err != nil {
+		return err
+	}
+	*s = String(ns)
+
+	return nil
 }
 
 // Value wraps the standard Value function, which implements the driver Valuer interface.

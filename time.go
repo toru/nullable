@@ -37,7 +37,13 @@ func NewTime(value time.Time) Time {
 // Scan wraps the standard Scan function, which implements the Scanner interface.
 func (t *Time) Scan(value any) error {
 	nt := sql.NullTime(*t)
-	return nt.Scan(value)
+
+	if err := nt.Scan(value); err != nil {
+		return err
+	}
+	*t = Time(nt)
+
+	return nil
 }
 
 // Value wraps the standard Value function, which implements the driver Valuer interface.

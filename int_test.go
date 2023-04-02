@@ -49,6 +49,26 @@ func TestNewInt64(t *testing.T) {
 	}
 }
 
+func TestInt64Scan(t *testing.T) {
+	testCases := []struct {
+		label       string
+		input       int64
+		wantSuccess bool
+	}{
+		{"with valid integer", 1, true},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.label, func(t *testing.T) {
+			var val Int64
+			if err := val.Scan(tc.input); (err == nil) != tc.wantSuccess {
+				t.Error(err)
+				return
+			}
+		})
+	}
+}
+
 func TestInt64Null(t *testing.T) {
 	testCases := []struct {
 		label   string
@@ -96,6 +116,28 @@ func TestNewInt32(t *testing.T) {
 			}
 			if val.Int32 != tc.input {
 				t.Errorf("got: %v, want: %v", val.Int32, tc.input)
+				return
+			}
+		})
+	}
+}
+
+func TestInt32Scan(t *testing.T) {
+	testCases := []struct {
+		label       string
+		input       any
+		wantSuccess bool
+	}{
+		{"with valid integer", 1, true},
+		{"with overflow integer", 4294967296, false},
+		{"with underflow integer", -4294967296, false},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.label, func(t *testing.T) {
+			var val Int32
+			if err := val.Scan(tc.input); (err == nil) != tc.wantSuccess {
+				t.Error(err)
 				return
 			}
 		})
@@ -191,6 +233,28 @@ func TestNewInt16(t *testing.T) {
 			}
 			if val.Int16 != tc.input {
 				t.Errorf("got: %v, want: %v", val.Int16, tc.input)
+				return
+			}
+		})
+	}
+}
+
+func TestInt16Scan(t *testing.T) {
+	testCases := []struct {
+		label       string
+		input       any
+		wantSuccess bool
+	}{
+		{"with valid integer", 1, true},
+		{"with overflow integer", 65536, false},
+		{"with underflow integer", -65536, false},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.label, func(t *testing.T) {
+			var val Int16
+			if err := val.Scan(tc.input); (err == nil) != tc.wantSuccess {
+				t.Error(err)
 				return
 			}
 		})

@@ -11,6 +11,18 @@ Here is the [full documentation](https://pkg.go.dev/github.com/toru/nullable).
 
 ## Quick Examples
 
+Usage within struct definition.
+
+```go
+type IceCream struct {
+    // Using the nullable package.
+    Flavor nullable.String `db:"flavor"`
+
+    // Using the database/sql package.
+    Topping sql.NullString `db:"topping"`
+}
+```
+
 Here is an example using the String type.
 
 ```go

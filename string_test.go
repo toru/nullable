@@ -22,6 +22,33 @@ package nullable
 
 import "testing"
 
+func TestStringSet(t *testing.T) {
+	testCases := []struct {
+		label   string
+		subject String
+		input   string
+		want    error
+	}{
+		{"with empty string", String{}, "", nil},
+		{"with non-empty string", String{}, "miraculous", nil},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.label, func(t *testing.T) {
+			tc.subject.Set(tc.input)
+
+			if !tc.subject.Valid {
+				t.Errorf("got: %v, want: %v", tc.subject.Valid, true)
+				return
+			}
+			if tc.subject.String != tc.input {
+				t.Errorf("got: %v, want: %v", tc.subject.String, tc.input)
+				return
+			}
+		})
+	}
+}
+
 func TestStringValue(t *testing.T) {
 	testCases := []struct {
 		label   string

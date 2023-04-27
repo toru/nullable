@@ -37,6 +37,11 @@ func NewString(val string) String {
 	return String{String: val, Valid: true}
 }
 
+// Set overwrites the existing value.
+func (s *String) Set(value string) {
+	*s = NewString(value)
+}
+
 // Scan wraps the standard Scan function, which implements the Scanner interface.
 func (s *String) Scan(value any) error {
 	ns := sql.NullString(*s)

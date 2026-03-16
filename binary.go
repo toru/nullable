@@ -21,42 +21,65 @@
 package nullable
 
 import (
-	"database/sql"
 	"database/sql/driver"
-	"time"
+	"encoding/hex"
+	"fmt"
 )
 
-// Time is a type alias against the standard sql.NullTime type.
-type Time sql.NullTime
-
-// NewTime returns a Time populated with the given time.Time.
-func NewTime(value time.Time) Time {
-	return Time{Time: value, Valid: true}
+// Binary holds a nullable byte slice value.
+type Binary struct {
+	Bytes []byte
+	Valid bool
 }
 
-// Scan wraps the standard Scan function, which implements the Scanner interface.
-func (t *Time) Scan(value any) error {
-	nt := sql.NullTime(*t)
+// NewBinary returns a Binary populated with the given byte slice.
+func NewBinary(value []byte) Binary {
+	return Binary{Bytes: value, Valid: true}
+}
 
-	if err := nt.Scan(value); err != nil {
-		return err
+// Scan implements the sql.Scanner interface.
+func (b *Binary) Scan(value any) error {
+	if value == nil {
+		b.Bytes, b.Valid = nil, false
+		return nil
 	}
-	*t = Time(nt)
 
-	return nil
+	switch v := value.(type) {
+	case []byte:
+		b.Bytes = make([]byte, len(v))
+		copy(b.Bytes, v)
+		b.Valid = true
+
+		return nil
+	}
+
+	return fmt.Errorf("cannot scan type %T into binary", value)
 }
 
-// Value wraps the standard Value function, which implements the driver Valuer interface.
-func (t Time) Value() (driver.Value, error) {
-	return sql.NullTime(t).Value()
+// Value implements the driver.Valuer interface.
+func (b Binary) Value() (driver.Value, error) {
+	if !b.Valid {
+		return nil, nil
+	}
+
+	return b.Bytes, nil
 }
 
 // Null returns true if the underlying value is NULL.
-func (t Time) Null() bool {
-	return !t.Valid
+func (b Binary) Null() bool {
+	return !b.Valid
 }
 
 // Nil is an alias for Null() for those who prefer a more Go-like syntax.
-func (t Time) Nil() bool {
-	return t.Null()
+func (b Binary) Nil() bool {
+	return b.Null()
+}
+
+// HexString returns a hexadecimal string representation of the underlying value.
+func (b Binary) HexString() string {
+	if !b.Valid {
+		return hex.EncodeToString([]byte{})
+	}
+
+	return hex.EncodeToString(b.Bytes)
 }

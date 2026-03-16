@@ -1,4 +1,4 @@
-// Copyright 2023 Toru Maesaka
+// Copyright 2026 Toru Maesaka
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to
@@ -33,7 +33,7 @@ func NewByte(value byte) Byte {
 	return Byte{Byte: value, Valid: true}
 }
 
-// Scan wraps the standard Scan function, which implements the Scanner interface.
+// Scan wraps the standard Scan function, which implements the sql.Scanner interface.
 func (b *Byte) Scan(value any) error {
 	nb := sql.NullByte(*b)
 

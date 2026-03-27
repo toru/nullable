@@ -65,6 +65,11 @@ func (b Binary) Value() (driver.Value, error) {
 	return b.Bytes, nil
 }
 
+// Present returns true if the value is a non-empty byte slice.
+func (b Binary) Present() bool {
+	return b.Valid && len(b.Bytes) > 0
+}
+
 // Null returns true if the underlying value is NULL.
 func (b Binary) Null() bool {
 	return !b.Valid

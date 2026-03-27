@@ -123,6 +123,28 @@ func TestBinaryScanCopiesBytes(t *testing.T) {
 	}
 }
 
+func TestBinaryPresent(t *testing.T) {
+	testCases := []struct {
+		label   string
+		subject Binary
+		want    bool
+	}{
+		{"with NULL binary", Binary{Valid: false}, false},
+		{"with empty binary", Binary{Bytes: []byte(""), Valid: true}, false},
+		{"with nil bytes", Binary{Bytes: nil, Valid: true}, false},
+		{"with non-empty binary", Binary{Bytes: []byte("hello"), Valid: true}, true},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.label, func(t *testing.T) {
+			if res := tc.subject.Present(); res != tc.want {
+				t.Errorf("got: %v, want: %v", res, tc.want)
+				return
+			}
+		})
+	}
+}
+
 func TestBinaryNull(t *testing.T) {
 	testCases := []struct {
 		label   string

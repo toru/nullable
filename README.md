@@ -17,11 +17,11 @@ Usage within struct definition.
 
 ```go
 type IceCream struct {
-    // Using the nullable package
-    Flavor nullable.String `db:"flavor"`
+  // Using the nullable package
+  Flavor nullable.String `db:"flavor"`
 
-    // Using the database/sql package
-    Topping sql.NullString `db:"topping"`
+  // Using the database/sql package
+  Topping sql.NullString `db:"topping"`
 }
 ```
 
@@ -49,15 +49,15 @@ value.Set("hello there")
 ```go
 // Null() is also available
 if value.Nil() {
-    log.Println("stored as NULL in the database")
+  log.Println("stored as NULL in the database")
 }
 
 if value.Present() {
-    log.Println("non-empty string")
+  log.Println("non-empty string")
 }
 
 if value.Empty() {
-    log.Println("either NULL or empty string")
+  log.Println("either NULL or empty string")
 }
 ```
 
@@ -80,11 +80,11 @@ nullable.NewBinary([]byte("hello"))
 
 ```go
 if value.Nil() {
-    log.Println("stored as NULL in the database")
+  log.Println("stored as NULL in the database")
 }
 
 if value.Present() {
-    log.Println("non-empty byte slice")
+  log.Println("non-empty byte slice")
 }
 ```
 

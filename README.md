@@ -68,6 +68,35 @@ if value.Empty() {
 value.HexString()
 ```
 
+### Binary
+
+#### Initialization
+
+```go
+nullable.NewBinary([]byte("hello"))
+```
+
+#### Checking State
+
+```go
+if value.Nil() {
+    log.Println("stored as NULL in the database")
+}
+
+if value.Present() {
+    log.Println("non-empty byte slice")
+}
+```
+
+#### Utilities
+
+```go
+// Hexadecimal string representation of the underlying bytes
+value.HexString()
+```
+
+For all available types, see the [package documentation](https://pkg.go.dev/github.com/toru/nullable).
+
 ## Motivation
 
 Go's standard library provides precisely what it should: well-thought-out

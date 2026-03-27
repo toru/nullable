@@ -8,9 +8,6 @@ The nullable package provides an unobtrusive, [Active Support](https://guides.ru
 inspired syntax on top of Go's standard [database/sql](https://github.com/golang/go/tree/master/src/database/sql) types.
 Because nullable wraps the standard package, it is a simple drop-in replacement.
 
-The goal is to improve the readability of database interfacing code.
-The interface should feel natural to those who are familiar with [Rails](https://github.com/rails/rails).
-
 ## Quick Examples
 
 Usage within struct definition.
